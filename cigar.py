@@ -94,7 +94,7 @@ class Cigar(object):
 
     def reference_length(self):
         return sum(l for l, op in self.items() \
-                               if op in Cigar.read_consuming_ops)
+                               if op in Cigar.ref_consuming_ops)
 
     def mask_left(self, n_seq_bases, mask="S"):
         """
