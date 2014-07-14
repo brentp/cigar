@@ -28,7 +28,7 @@ downstream tools will not consider the soft-masked bases in further analysis.
 
 >>> c = Cigar('10M20S10M')
 >>> c.mask_left(10).cigar
-'10S20S10M'
+'30S10M'
 >>> c.mask_left(9).cigar
 '9S1M20S10M'
 >>> Cigar('10S').mask_left(10).cigar
@@ -126,7 +126,7 @@ class Cigar(object):
         new_cigs[:i] = [(l, op if op in "HS" else "S") for l, op in
                 new_cigs[:i]]
         new_cigs.extend(cigs[i + 1:])
-        return Cigar(Cigar.string_from_elements(new_cigs))
+        return Cigar(Cigar.string_from_elements(new_cigs)).merge_like_ops()
 
 
     @classmethod
