@@ -9,6 +9,7 @@ downstream tools will not consider the soft-masked bases in further analysis.
 
 
 ```Python
+>>> from cigar import Cigar
 
 >>> c = Cigar('100M')
 >>> len(c)
@@ -32,7 +33,7 @@ downstream tools will not consider the soft-masked bases in further analysis.
 
 >>> c = Cigar('10M20S10M')
 >>> c.mask_left(10).cigar
-'10S20S10M'
+'30S10M'
 >>> c.mask_left(9).cigar
 '9S1M20S10M'
 >>> Cigar('10S').mask_left(10).cigar
