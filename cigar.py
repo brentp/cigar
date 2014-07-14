@@ -59,10 +59,10 @@ True
 
 """
 from __future__ import print_function
-import sys
 from itertools import groupby
+from operator import itemgetter
 
-__version__ = "0.1"
+__version__ = "0.1.1"
 
 class Cigar(object):
     read_consuming_ops = ("M", "I", "S", "=", "X")
@@ -144,6 +144,24 @@ class Cigar(object):
 
     def _reverse_cigar(self):
         return Cigar.string_from_elements(list(self.items())[::-1])
+
+    def merge_like_ops(self):
+        """
+        >>> Cigar("1S20M").merge_like_ops()
+        Cigar('1S20M')
+        >>> Cigar("1S1S20M").merge_like_ops()
+        Cigar('2S20M')
+        >>> Cigar("1S1S1S20M").merge_like_ops()
+        Cigar('3S20M')
+        >>> Cigar("1S1S1S20M1S1S").merge_like_ops()
+        Cigar('3S20M2S')
+        """
+
+        cigs = []
+        for op, grps in groupby(self.items(), itemgetter(1)):
+            cigs.append((sum(g[0] for g in grps), op))
+
+        return Cigar(self.string_from_elements(cigs))
 
 
 if __name__ == "__main__":
