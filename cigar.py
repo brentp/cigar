@@ -62,7 +62,7 @@ from __future__ import print_function
 from itertools import groupby
 from operator import itemgetter
 
-__version__ = "0.1.1"
+__version__ = "0.1.3"
 
 class Cigar(object):
     read_consuming_ops = ("M", "I", "S", "=", "X")
