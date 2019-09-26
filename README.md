@@ -67,3 +67,5 @@ Installation
 ============
 
     pip install cigar
+    conda install -c bioconda cigar
+    
